@@ -1,1 +1,71 @@
 /* You can add global styles to this file, and also import other style files */
+.active{
+  margin-top: 5px;
+  border: 1px solid #dbdbdb;
+
+  border-radius: 15px 15px 0px 0px;
+  font-weight: bold;
+}
+
+.container {
+  margin-top: 50px;
+
+}
+
+h1{
+  margin-top: 30px;
+}
+
+h5{
+  margin-top: 30px;
+}
+
+label{
+  width: 80px;
+}
+
+button{
+  margin-left: 10px;
+
+}
+
+
+.container {
+  margin-top: 50px;
+
+  h5 {
+    font-size: 30px;
+    margin-top: 10px;
+  }
+
+  .ingredient {
+    font-size: 12px;
+  }
+}
+
+.prizePizza {
+  position: absolute;
+  right: -20px;
+  bottom: 6px;
+}
+
+.prize {
+  float: left;
+  border-right: 1px solid gray;
+  width: 45px;
+  text-align: center;
+  font-size: 9px;
+}
+
+a{
+  color: black;
+  text-decoration: none;
+}
+
+
+input{
+  outline: none;
+  &.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+}
