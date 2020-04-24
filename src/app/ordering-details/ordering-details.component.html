@@ -1,0 +1,51 @@
+<div class="container border" style="width: 500px">
+  <div class="row justify-content-center text-center">
+    <div class="col-md-12">
+      <h5>ORDERING DETAILS</h5>
+      <br/>
+      <form #f="ngForm">
+        <label>Name: </label><input type="text"
+                                    maxlength="15"
+                                    name="name"
+                                    required><br/>
+        <label>Surname: </label><input type="text"
+                                       maxlength="20"
+                                       name="surname"
+                                       required><br/>
+        <label>Email: </label><input type="email"
+                                     maxlength="20"
+                                     name="email"
+                                     email><br/>
+        <label>Phone: </label><input type="text"
+                                     maxlength="9"
+                                     name="phone"
+                                     required
+                                     onkeyup="this.value=this.value.replace(/\D/g,'')"><br/>
+        <label>Address: </label><input type="text"
+                                       maxlength="40"
+                                       name="address"
+                                       required><br/>
+        <label style="width: 100px">Postal Code: </label>
+        <input name="postal" style="width: 30px"
+               required type="text"
+               maxlength="2"
+               onkeyup="this.value=this.value.replace(/\D/g,'')"> -
+        <input style="width: 50px" type="text"
+               maxlength="4" name="postalcode"
+               required
+               onkeyup="this.value=this.value.replace(/\D/g,'')">
+        <label style="width: 50px">City: </label><input type="text" name="city" ngModel required maxlength="20"><br/>
+
+
+        <button type='button' class="btn btn-dark" routerLink="/information"
+        [disabled]="!f.valid">ORDER</button>
+        <br/><br/>
+
+      </form>
+
+
+    </div>
+
+
+  </div>
+</div>

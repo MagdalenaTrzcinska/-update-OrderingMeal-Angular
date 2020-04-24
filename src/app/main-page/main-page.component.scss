@@ -1,0 +1,31 @@
+.container {
+  margin-top: 50px;
+
+  h5 {
+    font-size: 30px;
+    margin-top: 10px;
+  }
+
+  .ingredient {
+    font-size: 12px;
+  }
+}
+
+.prizePizza {
+  position: absolute;
+  right: -20px;
+  bottom: 6px;
+}
+
+.prize {
+  float: left;
+  border-right: 1px solid gray;
+  width: 45px;
+  text-align: center;
+  font-size: 9px;
+}
+
+a{
+  color: black;
+  text-decoration: none;
+}

@@ -1,0 +1,22 @@
+h4{
+  margin-top: 10px;
+}
+.sale{
+  font-size: 15px;
+}
+
+h6{
+  margin-top: 12px;
+  font-size: 20px;
+}
+.cursor{
+  cursor: pointer;
+}
+
+input{
+  margin-bottom: 20px;
+  outline: none;
+  &.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+}

@@ -1,0 +1,30 @@
+<div class="container" style="width: 500px">
+  <div class="row justify-content-center border text-center">
+    <div class="col-md-12">
+      <h1>{{pizzas[numberPizza].name}}</h1>
+      <label><input type="radio" value="small" (click)=check(0) name="size">Small</label>
+      <label><input type="radio" value="medium" (click)=check(1) name="size">Medium</label>
+      <label> <input type="radio" value="huge" (click)=check(2) name="size">Huge</label>
+      <img style="width: 90%; height: 30%; margin-top: 3%" src="../assets/{{numberPizza+1}}.jpg">
+
+      <h5>Ingredients</h5>
+      {{pizzas[numberPizza].ingredients}}
+      <hr/>
+      <h6>Other +1.50 €</h6>
+      <div style="width: 28%; text-align: left; margin-left: 36%" *ngFor="let ingredient of otherIngredients">
+        <input type="checkbox" value="{{ingredient}}" (click)="onIngredient($event)"> {{ingredient}}
+
+      </div>
+      <br/>
+      <br/>
+      PRIZE: {{sum}} € <button class="btn btn-dark" (click)="onAddPizza()">ADD</button>
+      <br/>
+      <br/>
+
+
+    </div>
+  </div>
+
+
+
+</div>
