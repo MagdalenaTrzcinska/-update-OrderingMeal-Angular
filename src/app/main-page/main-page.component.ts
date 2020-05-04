@@ -11,6 +11,7 @@ export class MainPageComponent implements OnInit {
 
   pizzas: Pizza[];
 
+
   constructor(private pizzaService: PizzaService) {
   }
 

@@ -12,6 +12,8 @@ import {FormsModule} from "@angular/forms";
 import { OrderingDetailsComponent } from './ordering-details/ordering-details.component';
 import { OrderInformationComponent } from './ordering-details/order-information/order-information.component';
 
+import { SelectedPizzaDirective } from './selected-pizza.directive';
+
 const routes: Routes = [
   {path: 'menu', component: MainPageComponent},
   {path: 'sale', component: SalePageComponent},
@@ -31,7 +33,8 @@ const routes: Routes = [
     OrderPageComponent,
     SelectedPizzaComponent,
     OrderingDetailsComponent,
-    OrderInformationComponent
+    OrderInformationComponent,
+    SelectedPizzaDirective
   ],
   imports: [
     RouterModule.forRoot(

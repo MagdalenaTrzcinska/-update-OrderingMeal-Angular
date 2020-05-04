@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Order, Pizza, Sale} from "./pizza";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,9 @@ export class PizzaService {
   numberSale: number;
   total = 0;
   order: Order[] = [];
-  howMuchLess=0;
+  howMuchLess = 0;
+
+
 
   public pizzas: Pizza[] = [
     {

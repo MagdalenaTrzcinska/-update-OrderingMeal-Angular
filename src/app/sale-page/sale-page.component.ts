@@ -12,6 +12,7 @@ export class SalePageComponent implements OnInit {
   sales: Sale[];
   ifChosenThisPizza = false;
   nrSale: number;
+  isChoose = false;
 
   constructor(private pizzaService: PizzaService) {
   }
