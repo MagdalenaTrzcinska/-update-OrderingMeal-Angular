@@ -12,7 +12,6 @@ export class SelectedPizzaComponent implements OnInit, OnChanges {
   numberPizza: number;
   pizzas: Pizza[];
   sum = 0;
-  which = 0;
   otherIngredients: Array<string>;
 
   additionalIngredients = '';
@@ -25,17 +24,17 @@ export class SelectedPizzaComponent implements OnInit, OnChanges {
 
   check(i) {
 
-    if (i == 0) {
+    if (i === 0) {
       this.sum += this.pizzas[this.numberPizza].smallPrize;
       this.size = 'small';
 
     }
-    if (i == 1) {
+    if (i === 1) {
       this.sum += this.pizzas[this.numberPizza].mediumPrize;
       this.size = 'medium';
 
     }
-    if (i == 2) {
+    if (i === 2) {
       this.sum += this.pizzas[this.numberPizza].hugePrize;
       this.size = 'huge';
     }
