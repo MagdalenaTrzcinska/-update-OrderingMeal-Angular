@@ -1,26 +1,24 @@
-
-
-
-<div class="container" style="width: 500px">
-  <div class="row justify-content-center border" style="height: 120px; margin-bottom: 20px" *ngFor="let pizza of pizzas; let i=index">
-    <div class="col-md-7"><a routerLink="/selectedPizza" (click)="onChoose(i)"><h5>{{pizza.name}}</h5><span class="ingredient">{{pizza.ingredients}}</span>
-      <div class="prizePizza">
-        <span class="prize">
-          Small <br/>
-          {{pizza.smallPrize}} €
-        </span>
-        <span class="prize">
-          Medium <br/>
-          {{pizza.mediumPrize}} €
-        </span>
-        <span class="prize">
-          Huge <br/>
-          {{pizza.hugePrize}} €
-        </span>
-      </div>
-    </a>
-    </div>
-    <div class="col-md-5"><img style="width: 100%; height: 90%; margin-top: 3%" src="../assets/{{i+1}}.jpg"></div>
-  </div>
-
+<div class="row justify-content-center" style="height: 300px">
+  <header class="col-md-12" appPhotoChange style="height: 400px">
+    <img style="width: 100%; height: 50%" src="../assets/pizza2.png">
+  </header>
 </div>
+
+<div class="row justify-content-center">
+  <div class="col-lg-4 col-md-7 col-8 cer">
+    <img src="../assets/Certificate.pdf">
+  </div>
+  <div class="col-lg-4 col-md-7 col-8 cer">
+    <img src="../assets/Certificate2.pdf">
+  </div>
+</div>
+
+
+<aside class="row justify-content-center">
+  <div class="col-lg-6 col-md-9 text-center">
+    <h1>order and see for yourself</h1>
+  </div>
+</aside>
+
+
+

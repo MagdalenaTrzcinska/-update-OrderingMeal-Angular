@@ -1,0 +1,31 @@
+<div class="row justify-content-center" style="height: 170px">
+  <header class="col-md-12" style="height: 400px">
+    <img src="../assets/pizza2.png">
+  </header>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center border" style="height: 120px; margin-bottom: 20px" *ngFor="let pizza of pizzas; let i=index">
+    <div class="col-md-7 col-7"><a routerLink="/selectedPizza" (click)="onChoose(i)">
+      <h5>{{pizza.name}}</h5><span class="ingredient">{{pizza.ingredients}}</span>
+      <div class="prizePizza">
+        <span class="prize">
+          Small <br/>
+          {{pizza.smallPrize}} €
+        </span>
+        <span class="prize">
+          Medium <br/>
+          {{pizza.mediumPrize}} €
+        </span>
+        <span class="prize">
+          Huge <br/>
+          {{pizza.hugePrize}} €
+        </span>
+      </div>
+    </a>
+    </div>
+    <div class="col-md-5 col-5"><img style="width: 100%; height: 90%; margin-top: 3%" src="../assets/{{i+1}}.jpg"></div>
+  </div>
+</div>
+
+
