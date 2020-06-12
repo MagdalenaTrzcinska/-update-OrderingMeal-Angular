@@ -1,37 +1,30 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
-import {PizzaService} from "../pizza.service";
-import {Order, Sale} from "../pizza";
+import {PizzaService} from '../pizza.service';
+import {Order, Sale} from '../pizza';
 
 @Component({
   selector: 'app-order-page',
   templateUrl: './order-page.component.html',
   styleUrls: ['./order-page.component.scss']
 })
-export class OrderPageComponent implements OnInit, OnChanges {
+export class OrderPageComponent implements OnInit{
 
   order: Order[] = [];
   sale: Sale[] = [];
-  total: number;
-  numberSale = 3;
-
-  howMuchLess: number;
+  totalPrice: number;
+  selectedSaleIndex: number;
+  discount: number;
 
   constructor(private pizzaService: PizzaService) {
+    this.pizzaService.subjectSale.subscribe(sale => {
+      this.sale = sale;
+    });
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.order = this.pizzaService.order;
-    this.sale = this.pizzaService.sale;
-    this.total = this.pizzaService.total;
-    this.numberSale = this.pizzaService.numberSale;
-    this.howMuchLess = this.pizzaService.howMuchLess;
-
+    this.totalPrice = this.pizzaService.totalPrice;
+    this.selectedSaleIndex = this.pizzaService.selectedSaleIndex;
+    this.discount = this.pizzaService.discount;
   }
-
-  ngOnChanges(): void {
-    this.order = this.pizzaService.order;
-    this.total = this.pizzaService.total;
-  }
-
-
 }

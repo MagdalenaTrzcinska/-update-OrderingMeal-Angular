@@ -6,7 +6,7 @@
 
 <div class="container">
   <div class="row justify-content-center border" style="height: 120px; margin-bottom: 20px" *ngFor="let pizza of pizzas; let i=index">
-    <div class="col-md-7 col-7"><a routerLink="/selectedPizza" (click)="onChoose(i)">
+    <div class="col-md-7 col-7"><a routerLink="/selectedPizza" (click)="onChoosePizza(i)">
       <h5>{{pizza.name}}</h5><span class="ingredient">{{pizza.ingredients}}</span>
       <div class="prizePizza">
         <span class="prize">

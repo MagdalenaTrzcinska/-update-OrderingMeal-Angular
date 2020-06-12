@@ -9,11 +9,14 @@ import {PizzaService} from '../pizza.service';
 })
 export class MenuComponent {
   pizzas: Pizza[];
+
   constructor(private pizzaService: PizzaService) {
-    this.pizzas = this.pizzaService.pizzas;
-  }
-  onChoose(i) {
-    this.pizzaService.numberPizza = i;
+    this.pizzaService.subjectPizza.subscribe(pizzas => {
+      this.pizzas = pizzas;
+    });
   }
 
+  onChoosePizza(pizzaIndex: number) {
+    this.pizzaService.selectedPizzaIndex = pizzaIndex;
+  }
 }

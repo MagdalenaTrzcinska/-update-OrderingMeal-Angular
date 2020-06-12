@@ -1,19 +1,21 @@
 import {Injectable} from '@angular/core';
-import {Order, Pizza, Sale} from "./pizza";
+import {Order, Pizza, Sale} from './pizza';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class PizzaService {
-  numberPizza: number;
-  numberSale: number;
-  total = 0;
+  selectedPizzaIndex: number;
+  selectedSaleIndex: number;
+  totalPrice = 0;
   order: Order[] = [];
-  howMuchLess = 0;
+  discount = 0;
+  subjectPizza;
+  subjectSale;
 
-
-
-  public pizzas: Pizza[] = [
+  pizzas: Pizza[] = [
     {
       name: 'Margherita',
       ingredients: 'tomato sauce, mozzarella',
@@ -44,7 +46,7 @@ export class PizzaService {
     },
   ];
 
-  public sale: Sale[] = [
+  sale: Sale[] = [
     {
       name: 'SMALL MARGHERITA',
       info: 'discount for small margherita',
@@ -66,4 +68,8 @@ export class PizzaService {
     'tomato', 'corn', 'olives', 'pineapple', 'ham', 'pepperoni', 'onion',
     'cucumber', 'spinach', 'basil'];
 
+  constructor() {
+    this.subjectPizza = new BehaviorSubject<Pizza[]>(this.pizzas);
+    this.subjectSale = new BehaviorSubject<Sale[]>(this.sale);
+  }
 }

@@ -1,79 +1,65 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
-import {Order, Pizza} from "../../pizza";
-import {PizzaService} from "../../pizza.service";
+import {Component, OnInit} from '@angular/core';
+import {Order, Pizza} from '../../pizza';
+import {PizzaService} from '../../pizza.service';
 
 @Component({
   selector: 'app-selected-pizza',
   templateUrl: './selected-pizza.component.html',
   styleUrls: ['./selected-pizza.component.scss']
 })
-export class SelectedPizzaComponent implements OnInit, OnChanges {
+export class SelectedPizzaComponent implements OnInit{
 
-  numberPizza: number;
-  pizzas: Pizza[];
-  sum = 0;
+  selected = {
+    pizzaIndex: this.pizzaService.selectedPizzaIndex,
+    sizePizza: undefined,
+    otherIngredients: ''
+  };
+  priceForPizza = 0;
   otherIngredients: Array<string>;
-
-  additionalIngredients = '';
-  size: string;
-  order: Order[] = [];
+  pizzas: Pizza[];
 
   constructor(private pizzaService: PizzaService) {
+    this.pizzaService.subjectPizza.subscribe(pizzas => {
+      this.pizzas = pizzas;
+    });
   }
 
-
-  check(i) {
-
-    if (i === 0) {
-      this.sum += this.pizzas[this.numberPizza].smallPrize;
-      this.size = 'small';
-
-    }
-    if (i === 1) {
-      this.sum += this.pizzas[this.numberPizza].mediumPrize;
-      this.size = 'medium';
-
-    }
-    if (i === 2) {
-      this.sum += this.pizzas[this.numberPizza].hugePrize;
-      this.size = 'huge';
-    }
+  ngOnInit() {
+    this.otherIngredients = this.pizzaService.otherIngredients;
   }
 
-  onIngredient($event) {
+  onCheckSizePizza(size) {
+    if (size === 'small') {
+      this.priceForPizza += this.pizzas[this.selected.pizzaIndex].smallPrize;
+    }
+    if (size === 'medium') {
+      this.priceForPizza += this.pizzas[this.selected.pizzaIndex].mediumPrize;
+    }
+    if (size === 'huge') {
+      this.priceForPizza += this.pizzas[this.selected.pizzaIndex].hugePrize;
+    }
+    this.selected.sizePizza = size.toString();
+  }
+
+  onAddIngredient($event) {
     if ($event.target.checked) {
-      this.sum += 1.50;
-      this.additionalIngredients += $event.target.value + ', ';
+      this.priceForPizza += 1.50;
+      this.selected.otherIngredients += $event.target.value + ', ';
     } else {
-      this.sum -= 1.50;
+      this.priceForPizza -= 1.50;
     }
   }
 
   onAddPizza() {
-    this.pizzaService.total += this.sum;
-
+    this.pizzaService.totalPrice += this.priceForPizza;
     this.pizzaService.order.push(
       {
-        name: this.pizzas[this.numberPizza].name,
-        ingredients: this.pizzas[this.numberPizza].ingredients,
-        otheringredients: this.additionalIngredients,
-        size: this.size,
-        prize: this.sum,
+        name: this.pizzas[this.selected.pizzaIndex].name,
+        ingredients: this.pizzas[this.selected.pizzaIndex].ingredients,
+        otheringredients: this.selected.otherIngredients,
+        size: this.selected.sizePizza,
+        prize: this.priceForPizza,
       });
-
     alert('added');
   }
-
-  ngOnInit(): void {
-    this.pizzas = this.pizzaService.pizzas;
-    this.numberPizza = this.pizzaService.numberPizza;
-    this.otherIngredients = this.pizzaService.otherIngredients;
-  }
-
-  ngOnChanges(): void {
-    this.pizzas = this.pizzaService.pizzas;
-
-  }
-
-
 }

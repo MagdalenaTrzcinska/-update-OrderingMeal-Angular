@@ -1,71 +1,68 @@
-import {Component, OnInit} from '@angular/core';
-import {Sale} from "../pizza";
-import {PizzaService} from "../pizza.service";
+import {Component} from '@angular/core';
+import {Sale} from '../pizza';
+import {PizzaService} from '../pizza.service';
 
 @Component({
   selector: 'app-sale-page',
   templateUrl: './sale-page.component.html',
   styleUrls: ['./sale-page.component.scss']
 })
-export class SalePageComponent implements OnInit {
+export class SalePageComponent {
   howManyDiscounts = 0;
   sales: Sale[];
   isChosenThisPizza = false;
   nrSale: number;
 
   constructor(private pizzaService: PizzaService) {
+    this.pizzaService.subjectSale.subscribe(sale => {
+      this.sales = sale;
+    });
   }
 
-  ngOnInit(): void {
-    this.sales = this.pizzaService.sale;
-  }
-
-  onChoose(i) {
+  onChooseSale(numberSale: number) {
     if (this.howManyDiscounts === 1) {
       alert('the discount has already been selected');
     } else {
-      if (i === 0) {
-        for (let j = 0; j < this.pizzaService.order.length; j++) {
-          if (this.pizzaService.order[j].name === 'Margherita' && this.pizzaService.order[j].size === 'small') {
+      this.nrSale = numberSale;
+      if (numberSale === 0) {
+        for (const pizza of this.pizzaService.order) {
+          if (pizza.name === 'Margherita' && pizza.size === 'small') {
             this.isChosenThisPizza = true;
-            this.nrSale = i;
-            this.choose();
+            this.addingADiscountToTheOrder();
           }
         }
         if (this.isChosenThisPizza === false) {
           alert('small margherita was not chosen');
         }
       }
-      if (i === 1) {
+      if (numberSale === 1) {
         if (this.pizzaService.order.length === 1) {
           this.isChosenThisPizza = true;
-          this.nrSale = i;
-          this.choose();
+          this.addingADiscountToTheOrder();
         } else {
-          alert('no one pizza selected');
+          alert('choose one pizza');
         }
       }
-      if (i === 2) {
+      if (numberSale === 2) {
         if (this.pizzaService.order.length === 2) {
           this.isChosenThisPizza = true;
-          this.nrSale = i;
-          this.choose();
+          this.addingADiscountToTheOrder();
         } else {
-          alert('no two pizzas selected');
+          alert('choose two pizzas');
         }
       }
     }
   }
 
-  choose() {
+  addingADiscountToTheOrder() {
     if (this.howManyDiscounts !== 1 && this.isChosenThisPizza === true) {
-      alert('added');
       this.howManyDiscounts = 1;
-      this.pizzaService.numberSale = this.nrSale;
-
-      this.pizzaService.howMuchLess = (this.pizzaService.total * (this.pizzaService.sale[this.pizzaService.numberSale].discount / 100));
-      this.pizzaService.howMuchLess = Math.round(this.pizzaService.howMuchLess * 100) / 100;
-      this.pizzaService.total -= this.pizzaService.howMuchLess;
+      this.pizzaService.selectedSaleIndex = this.nrSale;
+      this.pizzaService.discount = (this.pizzaService.totalPrice *
+        (this.pizzaService.sale[this.pizzaService.selectedSaleIndex].discount / 100));
+      this.pizzaService.discount = Math.round(this.pizzaService.discount * 100) / 100;
+      this.pizzaService.totalPrice -= this.pizzaService.discount;
+      alert('added');
     } else {
       alert('the discount has already been selected');
     }

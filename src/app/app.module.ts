@@ -1,21 +1,21 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import {RouterModule, Routes} from '@angular/router';
 import { SalePageComponent } from './sale-page/sale-page.component';
 import { OrderPageComponent } from './order-page/order-page.component';
 import { SelectedPizzaComponent } from './menu/selected-pizza/selected-pizza.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 import { OrderingDetailsComponent } from './ordering-details/ordering-details.component';
 import { OrderInformationComponent } from './ordering-details/order-information/order-information.component';
 
 import { SelectedPizzaDirective } from './selected-pizza.directive';
 import { MenuComponent } from './menu/menu.component';
 import { PhotoChangeDirective } from './main-page/photo-change.directive';
-import { FooterComponent } from './footer/footer.component';
+
 
 const routes: Routes = [
   {path: 'menu', component: MenuComponent},
@@ -38,14 +38,12 @@ const routes: Routes = [
     OrderInformationComponent,
     SelectedPizzaDirective,
     MenuComponent,
-    PhotoChangeDirective,
-    FooterComponent
+    PhotoChangeDirective
   ],
   imports: [
     RouterModule.forRoot(
       routes, {enableTracing: true}),
     BrowserModule,
-    AppRoutingModule,
     FormsModule
   ],
   providers: [],
