@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Sale} from '../pizza';
 import {PizzaService} from '../pizza.service';
 
@@ -7,13 +7,16 @@ import {PizzaService} from '../pizza.service';
   templateUrl: './sale-page.component.html',
   styleUrls: ['./sale-page.component.scss']
 })
-export class SalePageComponent {
+export class SalePageComponent implements OnInit{
   howManyDiscounts = 0;
   sales: Sale[];
   isChosenThisPizza = false;
   nrSale: number;
 
   constructor(private pizzaService: PizzaService) {
+  }
+
+  ngOnInit() {
     this.pizzaService.subjectSale.subscribe(sale => {
       this.sales = sale;
     });
@@ -27,8 +30,7 @@ export class SalePageComponent {
       if (numberSale === 0) {
         for (const pizza of this.pizzaService.order) {
           if (pizza.name === 'Margherita' && pizza.size === 'small') {
-            this.isChosenThisPizza = true;
-            this.addingADiscountToTheOrder();
+            this.whenSelectedPizza();
           }
         }
         if (this.isChosenThisPizza === false) {
@@ -37,21 +39,24 @@ export class SalePageComponent {
       }
       if (numberSale === 1) {
         if (this.pizzaService.order.length === 1) {
-          this.isChosenThisPizza = true;
-          this.addingADiscountToTheOrder();
+          this.whenSelectedPizza();
         } else {
           alert('choose one pizza');
         }
       }
       if (numberSale === 2) {
         if (this.pizzaService.order.length === 2) {
-          this.isChosenThisPizza = true;
-          this.addingADiscountToTheOrder();
+          this.whenSelectedPizza();
         } else {
           alert('choose two pizzas');
         }
       }
     }
+  }
+
+  whenSelectedPizza() {
+    this.isChosenThisPizza = true;
+    this.addingADiscountToTheOrder();
   }
 
   addingADiscountToTheOrder() {

@@ -19,30 +19,33 @@ export class PizzaService {
     {
       name: 'Margherita',
       ingredients: 'tomato sauce, mozzarella',
-      smallPrize: 6,
-      mediumPrize: 10,
-      hugePrize: 12
+      small_Price: 6,
+      medium_Price: 10,
+      huge_Price: 12
     },
+
     {
       name: 'Capricciosa',
       ingredients: 'tomato sauce, mozzarella, ham, mushrooms',
-      smallPrize: 6.50,
-      mediumPrize: 12,
-      hugePrize: 14
+      small_Price: 6.50,
+      medium_Price: 12,
+      huge_Price: 14
     },
+
     {
       name: 'Pepperoni',
       ingredients: 'tomato sauce, mozzarella, pepperoni sausage',
-      smallPrize: 7.50,
-      mediumPrize: 13,
-      hugePrize: 15
+      small_Price: 7.50,
+      medium_Price: 13,
+      huge_Price: 15
     },
+
     {
       name: 'Vegetariana',
-      ingredients: 'tomato sauce, tomato, cucomber',
-      smallPrize: 7.50,
-      mediumPrize: 13,
-      hugePrize: 15
+      ingredients: 'tomato sauce, tomato, cucumber',
+      small_Price: 7.50,
+      medium_Price: 13,
+      huge_Price: 15
     },
   ];
 

@@ -1,18 +1,18 @@
 export interface Pizza {
   name: string;
   ingredients: string;
-  smallPrize: number;
-  mediumPrize: number;
-  hugePrize: number;
+  small_Price: number;
+  medium_Price: number;
+  huge_Price: number;
 }
 
 
 export interface Order {
   name: string;
   ingredients: string;
-  otheringredients: string;
+  other_Ingredients: string;
   size: string;
-  prize: number;
+  price: number;
 }
 
 export interface Sale {

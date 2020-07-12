@@ -7,10 +7,13 @@ import {PizzaService} from '../pizza.service';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit{
   pizzas: Pizza[];
 
   constructor(private pizzaService: PizzaService) {
+  }
+
+  ngOnInit() {
     this.pizzaService.subjectPizza.subscribe(pizzas => {
       this.pizzas = pizzas;
     });

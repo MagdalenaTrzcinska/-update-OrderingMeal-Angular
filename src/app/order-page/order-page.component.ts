@@ -8,7 +8,6 @@ import {Order, Sale} from '../pizza';
   styleUrls: ['./order-page.component.scss']
 })
 export class OrderPageComponent implements OnInit{
-
   order: Order[] = [];
   sale: Sale[] = [];
   totalPrice: number;
@@ -16,12 +15,13 @@ export class OrderPageComponent implements OnInit{
   discount: number;
 
   constructor(private pizzaService: PizzaService) {
-    this.pizzaService.subjectSale.subscribe(sale => {
-      this.sale = sale;
-    });
   }
 
   ngOnInit() {
+    this.pizzaService.subjectSale.subscribe(sale => {
+      this.sale = sale;
+    });
+
     this.order = this.pizzaService.order;
     this.totalPrice = this.pizzaService.totalPrice;
     this.selectedSaleIndex = this.pizzaService.selectedSaleIndex;
