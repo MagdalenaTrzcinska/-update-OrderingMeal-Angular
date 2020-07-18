@@ -9,11 +9,12 @@ import {PizzaService} from '../../pizza.service';
 })
 export class SelectedPizzaComponent implements OnInit {
   selected = {
-    pizzaIndex: this.pizzaService.selectedPizzaIndex,
+    pizzaIndex: undefined,
     sizePizza: undefined,
     otherIngredients: ''
   };
-  priceForPizza = 0;
+
+  priceForPizza;
   otherIngredients: Array<string>;
   pizzas: Pizza[];
 
@@ -24,45 +25,23 @@ export class SelectedPizzaComponent implements OnInit {
     this.pizzaService.subjectPizza.subscribe(pizzas => {
       this.pizzas = pizzas;
     });
+
+    this.pizzas = this.pizzaService.pizzas;
     this.otherIngredients = this.pizzaService.otherIngredients;
+    this.priceForPizza = this.pizzaService.priceForPizza;
+    this.selected = this.pizzaService.selected;
   }
 
-  onCheckSizePizza(size) {
-    if (size === 'small') {
-      this.priceForPizza += this.pizzas[this.selected.pizzaIndex].small_Price;
-    }
-    if (size === 'medium') {
-      this.priceForPizza += this.pizzas[this.selected.pizzaIndex].medium_Price;
-    }
-    if (size === 'huge') {
-      this.priceForPizza += this.pizzas[this.selected.pizzaIndex].huge_Price;
-    }
-    this.selected.sizePizza = size.toString();
+  onPickedPromotion(size) {
+    this.pizzaService.pickedSizeOfPizza(size);
   }
 
-  onAddIngredient($event) {
-    if ($event.target.checked) {
-      this.priceForPizza += 1.50;
-      this.selected.otherIngredients += $event.target.value + ', ';
-    } else {
-      this.priceForPizza -= 1.50;
-    }
+  onAdditionOfSelectedIngredients($event) {
+    this.pizzaService.additionOfSelectedIngredients($event);
   }
 
-  onAddPizza() {
-    this.pizzaService.totalPrice += this.priceForPizza;
-    this.addingPizzaToTheBoard();
+  onAdditionOfPizza() {
+    this.pizzaService.additionOfPizza();
   }
 
-  addingPizzaToTheBoard() {
-    this.pizzaService.order.push(
-      {
-        name: this.pizzas[this.selected.pizzaIndex].name,
-        ingredients: this.pizzas[this.selected.pizzaIndex].ingredients,
-        other_Ingredients: this.selected.otherIngredients,
-        size: this.selected.sizePizza,
-        price: this.priceForPizza,
-      });
-    alert('added');
-  }
 }

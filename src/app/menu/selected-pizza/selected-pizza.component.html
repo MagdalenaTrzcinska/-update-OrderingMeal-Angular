@@ -2,9 +2,9 @@
   <div class="row justify-content-center border text-center">
     <div class="col-md-12">
       <h1>{{pizzas[selected.pizzaIndex].name}}</h1>
-      <label><input #small type="radio" value="small" (click)=onCheckSizePizza(small.value) name="size">Small</label>
-      <label><input #medium type="radio" value="medium" (click)=onCheckSizePizza(medium.value) name="size">Medium</label>
-      <label> <input #huge type="radio" value="huge" (click)=onCheckSizePizza(huge.value) name="size">Huge</label>
+      <label><input #small type="radio" value="small" (click)=onPickedPromotion(small.value) name="size">Small</label>
+      <label><input #medium type="radio" value="medium" (click)=onPickedPromotion(medium.value) name="size">Medium</label>
+      <label> <input #huge type="radio" value="huge" (click)=onPickedPromotion(huge.value) name="size">Huge</label>
       <img style="width: 90%; height: 30%; margin-top: 3%" src="../assets/{{selected.pizzaIndex+1}}.jpg">
 
       <h5>Ingredients</h5>
@@ -12,11 +12,11 @@
       <hr/>
       <h6>Other +1.50 €</h6>
       <div style="width: 28%; text-align: left; margin-left: 36%" *ngFor="let ingredient of otherIngredients">
-        <input type="checkbox" value="{{ingredient}}" (click)="onAddIngredient($event)"> {{ingredient}}
+        <input type="checkbox" value="{{ingredient}}" (click)="onAdditionOfSelectedIngredients($event)"> {{ingredient}}
       </div>
       <br/>
       <br/>
-      PRIZE: {{priceForPizza}} € <button class="btn btn-dark" (click)="onAddPizza()">ADD</button>
+      PRIZE: {{priceForPizza}} € <button class="btn btn-dark" (click)="onAdditionOfPizza()">ADD</button>
       <br/>
       <br/>
     </div>

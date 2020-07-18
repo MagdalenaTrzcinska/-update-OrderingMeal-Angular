@@ -1,7 +1,7 @@
 <div class="container" style="width: 500px">
   <div class="row justify-content-center border cursor" style="height: 120px; margin-bottom: 20px"
        *ngFor="let sale of sales; let i=index">
-    <div class="col-md-7 col-7" (click)="onChooseSale(i)"><h4>{{sale.name}}</h4><span class="sale">{{sale.info}}</span>
+    <div class="col-md-7 col-7" (click)="onPickedPromotion(i)"><h4>{{sale.name}}</h4><span class="sale">{{sale.info}}</span>
       <h6>{{sale.discount}} %</h6>
     </div>
     <div class="col-md-5 col-5"><img style="width: 100%; height: 90%; margin-top: 3%" src="../assets/sale{{i+1}}.jpg"></div>

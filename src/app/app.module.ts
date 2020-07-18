@@ -12,6 +12,7 @@ import { OrderInformationComponent } from './ordering-details/order-information/
 import { SelectedPizzaDirective } from './selected-pizza.directive';
 import { MenuComponent } from './menu/menu.component';
 import {PhotoChangeDirective} from './main-page/photo-change.directive';
+import {HttpClientModule} from '@angular/common/http';
 
 const routes: Routes = [
   {path: 'menu', component: MenuComponent},
@@ -40,7 +41,8 @@ const routes: Routes = [
     RouterModule.forRoot(
       routes, {enableTracing: true}),
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

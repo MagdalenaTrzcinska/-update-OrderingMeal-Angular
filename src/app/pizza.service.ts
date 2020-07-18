@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Order, Pizza, Sale} from './pizza';
 import {BehaviorSubject} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,45 +11,22 @@ import {BehaviorSubject} from 'rxjs';
 export class PizzaService {
   selectedPizzaIndex: number;
   selectedSaleIndex: number;
-  totalPrice = 0;
-  order: Order[] = [];
-  discount = 0;
+  nrSale: number;
   subjectPizza;
   subjectSale;
+  order: Order[] = [];
+  totalPrice = 0;
+  discount = 0;
+  priceForPizza = 0;
+  howManyDiscounts = 0;
+  isChosenThisPizza = false;
+  selected = {
+    pizzaIndex: this.selectedPizzaIndex,
+    sizePizza: undefined,
+    otherIngredients: ''
+  };
 
-  pizzas: Pizza[] = [
-    {
-      name: 'Margherita',
-      ingredients: 'tomato sauce, mozzarella',
-      small_Price: 6,
-      medium_Price: 10,
-      huge_Price: 12
-    },
-
-    {
-      name: 'Capricciosa',
-      ingredients: 'tomato sauce, mozzarella, ham, mushrooms',
-      small_Price: 6.50,
-      medium_Price: 12,
-      huge_Price: 14
-    },
-
-    {
-      name: 'Pepperoni',
-      ingredients: 'tomato sauce, mozzarella, pepperoni sausage',
-      small_Price: 7.50,
-      medium_Price: 13,
-      huge_Price: 15
-    },
-
-    {
-      name: 'Vegetariana',
-      ingredients: 'tomato sauce, tomato, cucumber',
-      small_Price: 7.50,
-      medium_Price: 13,
-      huge_Price: 15
-    },
-  ];
+  pizzas: Pizza[];
 
   sale: Sale[] = [
     {
@@ -71,8 +50,110 @@ export class PizzaService {
     'tomato', 'corn', 'olives', 'pineapple', 'ham', 'pepperoni', 'onion',
     'cucumber', 'spinach', 'basil'];
 
-  constructor() {
+  constructor(private http: HttpClient) {
+    this.fetchPizzas();
     this.subjectPizza = new BehaviorSubject<Pizza[]>(this.pizzas);
     this.subjectSale = new BehaviorSubject<Sale[]>(this.sale);
   }
+  fetchPizzas() {
+    this.http.get<Pizza[]>('https://pizza-b4bb4.firebaseio.com/pizzas.json')
+      .subscribe(pizzas => {
+        this.pizzas = pizzas;
+      });
+  }
+
+
+  pickedSizeOfPizza(size) {
+    if (size === 'small') {
+      this.priceForPizza += this.pizzas[this.selected.pizzaIndex].small_Price;
+    }
+    if (size === 'medium') {
+      this.priceForPizza += this.pizzas[this.selected.pizzaIndex].medium_Price;
+    }
+    if (size === 'huge') {
+      this.priceForPizza += this.pizzas[this.selected.pizzaIndex].huge_Price;
+    }
+    this.selected.sizePizza = size.toString();
+  }
+
+  additionOfSelectedIngredients($event) {
+    if ($event.target.checked) {
+      this.priceForPizza += 1.50;
+      this.selected.otherIngredients += $event.target.value + ', ';
+    } else {
+      this.priceForPizza -= 1.50;
+    }
+  }
+
+  additionOfPizza() {
+    this.totalPrice += this.priceForPizza;
+    this.addingPizzaToTheOrder();
+  }
+
+  addingPizzaToTheOrder() {
+    this.order.push(
+      {
+        name: this.pizzas[this.selected.pizzaIndex].name,
+        ingredients: this.pizzas[this.selected.pizzaIndex].ingredients,
+        other_Ingredients: this.selected.otherIngredients,
+        size: this.selected.sizePizza,
+        price: this.priceForPizza,
+      });
+    alert('added');
+  }
+
+  pickedPromotion(numberSale: number) {
+    if (this.howManyDiscounts === 1) {
+      alert('the discount has already been selected');
+    } else {
+      this.nrSale = numberSale;
+      if (numberSale === 0) {
+        for (const pizza of this.order) {
+          if (pizza.name === 'Margherita' && pizza.size === 'small') {
+            this.whenSelectedPizza();
+          }
+        }
+        if (this.isChosenThisPizza === false) {
+          alert('small margherita was not chosen');
+        }
+      }
+      if (numberSale === 1) {
+        if (this.order.length === 1) {
+          this.whenSelectedPizza();
+        } else {
+          alert('choose one pizza');
+        }
+      }
+      if (numberSale === 2) {
+        if (this.order.length === 2) {
+          this.whenSelectedPizza();
+        } else {
+          alert('choose two pizzas');
+        }
+      }
+    }
+  }
+
+  whenSelectedPizza() {
+    this.isChosenThisPizza = true;
+    this.whetherThePromotionHasBeenSelected();
+  }
+
+  whetherThePromotionHasBeenSelected() {
+    if (this.howManyDiscounts !== 1 && this.isChosenThisPizza === true) {
+      this.onceSelected();
+    } else {
+      alert('the discount has already been selected');
+    }
+  }
+
+  onceSelected(){
+    this.howManyDiscounts = 1;
+    this.selectedSaleIndex = this.nrSale;
+    this.discount = (this.totalPrice * (this.sale[this.selectedSaleIndex].discount / 100));
+    this.discount = Math.round(this.discount * 100) / 100;
+    this.totalPrice -= this.discount;
+    alert('added');
+  }
 }
+

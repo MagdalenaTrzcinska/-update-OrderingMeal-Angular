@@ -8,7 +8,7 @@ import {PizzaService} from '../pizza.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit{
-  pizzas: Pizza[];
+  pizzas: Pizza[] = [];
 
   constructor(private pizzaService: PizzaService) {
   }
@@ -17,6 +17,8 @@ export class MenuComponent implements OnInit{
     this.pizzaService.subjectPizza.subscribe(pizzas => {
       this.pizzas = pizzas;
     });
+
+    this.pizzas = this.pizzaService.pizzas;
   }
 
   onChoosePizza(pizzaIndex: number) {
